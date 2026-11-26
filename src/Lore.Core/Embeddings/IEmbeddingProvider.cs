@@ -1,0 +1,8 @@
+namespace Lore.Core.Embeddings;
+
+public interface IEmbeddingProvider
+{
+    int Dimensions { get; }
+    Task<float[]> EmbedAsync(string text, CancellationToken ct = default);
+    Task<IReadOnlyList<float[]>> EmbedBatchAsync(IReadOnlyList<string> texts, CancellationToken ct = default);
+}

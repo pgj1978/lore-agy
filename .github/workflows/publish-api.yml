@@ -1,0 +1,43 @@
+name: Publish Lore API
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore & Test
+        run: |
+          dotnet restore Lore.slnx
+          dotnet build Lore.slnx --no-restore -c Release
+          dotnet test Lore.slnx --no-build -c Release
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push Lore.Api Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/Lore.Api/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/lore-api:latest
+            ghcr.io/${{ github.repository_owner }}/lore-api:${{ github.sha }}

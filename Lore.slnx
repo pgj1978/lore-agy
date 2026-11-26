@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Lore.Core/Lore.Core.csproj" />
+    <Project Path="src/Lore.Api/Lore.Api.csproj" />
+    <Project Path="src/Lore.Cli/Lore.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Lore.Core.Tests/Lore.Core.Tests.csproj" />
+  </Folder>
+</Solution>

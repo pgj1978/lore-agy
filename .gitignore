@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+out/
+publish/
+*.user
+*.suo
+*.cache
+.vs/
+TestResults/
+coverage*.json
+
+# Local Lore runtime & secrets (never commit)
+.lore/
+secrets.json
+*.secrets.json
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
